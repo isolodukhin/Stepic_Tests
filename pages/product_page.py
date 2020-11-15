@@ -20,3 +20,8 @@ class ProductPage(BasePage):
         # Проверяем, что цена товара присутствует в сообщении со стоимостью корзины
         assert product_price in message_basket_total, "No product price in the message"
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.MESSAGE_ABOUT_ADDING), "Success message is presented, but should not be"
+
+    def should_message_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.MESSAGE_ABOUT_ADDING), "Success message is presented, but should not be"
