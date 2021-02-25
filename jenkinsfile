@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage("test"){
+            steps {
+                sh '''
+                 PYENV_HOME=$WORKSPACE/.pyenv/
+                 rm -rf Stepic_Tests
+                 git clone https://github.com/isolodukhin/Stepic_Tests
+                 cd Stepic_Tests
+                 python3 -m venv $PYENV_HOME
+                 . $PYENV_HOME/bin/activate
+                 pip install -r requirements.txt
+                 pytest -v --tb=line --language=en -m need_review
+                '''
+            }
+        }
+    }
+}
+
